@@ -45,7 +45,7 @@ public class CloudActivity extends AppCompatActivity {
     Button sendpn,update,update2,learnMore;
     TextView online;
     Typewriter welcome;
-    Switch greet;
+    Switch greet, master;
     private Firebase firebase;
 
     @Override
@@ -103,6 +103,7 @@ public class CloudActivity extends AppCompatActivity {
         sgreetContent=(EditText)findViewById(R.id.sGreetContent);
         pictureURL=(EditText)findViewById(R.id.pictureURL);
         greet=(Switch)findViewById(R.id.greet);
+        master=(Switch)findViewById(R.id.master);
         online=(TextView)findViewById(R.id.online);
         welcome=(Typewriter)findViewById(R.id.welcome);
         firebase.addValueEventListener(new ValueEventListener() {
@@ -114,6 +115,12 @@ public class CloudActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Startup greeting disabled",Toast.LENGTH_SHORT).show();
+                }
+                if((boolean)dataSnapshot.child("Alive").getValue()){
+                    Toast.makeText(getApplicationContext(),"Marv is up and running",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Marv's services have been shut down",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -199,6 +206,16 @@ public class CloudActivity extends AppCompatActivity {
                     firebase.child("Greet").setValue("Yes");
                 } else {
                     firebase.child("Greet").setValue("No");
+                }
+            }
+        });
+        master.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    firebase.child("Alive").setValue(true);
+                } else {
+                    firebase.child("Alive").setValue(false);
                 }
             }
         });

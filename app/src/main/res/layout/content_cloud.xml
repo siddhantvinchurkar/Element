@@ -67,6 +67,20 @@
         android:layout_height="20dp"
         android:background="?android:colorBackground"/>
 
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="100dp"
+                android:paddingRight="100dp"
+                android:id="@+id/master"
+                android:checked="true"
+                android:text="Master Switch"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="?android:colorBackground"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
