@@ -41,8 +41,8 @@ import com.firebase.client.ValueEventListener;
 
 public class CloudActivity extends AppCompatActivity {
 
-    EditText notifyTitle,notifyContent,wnew,mgreetContent,sgreetContent,pictureURL;
-    Button sendpn,update,update2,learnMore;
+    EditText notifyTitle,notifyContent,wnew,mgreetContent,sgreetContent,pictureURL, movieSuggestion1,movieSuggestion2,movieSuggestion3;
+    Button sendpn,update,update2,update3,learnMore;
     TextView online;
     Typewriter welcome;
     Switch greet, master;
@@ -99,9 +99,13 @@ public class CloudActivity extends AppCompatActivity {
         sendpn=(Button)findViewById(R.id.sendpn);
         update=(Button)findViewById(R.id.update);
         update2=(Button)findViewById(R.id.update2);
+        update3=(Button)findViewById(R.id.update3);
         mgreetContent=(EditText)findViewById(R.id.mGreetContent);
         sgreetContent=(EditText)findViewById(R.id.sGreetContent);
         pictureURL=(EditText)findViewById(R.id.pictureURL);
+        movieSuggestion1=(EditText)findViewById(R.id.movieSuggestion1);
+        movieSuggestion2=(EditText)findViewById(R.id.movieSuggestion2);
+        movieSuggestion3=(EditText)findViewById(R.id.movieSuggestion3);
         greet=(Switch)findViewById(R.id.greet);
         master=(Switch)findViewById(R.id.master);
         online=(TextView)findViewById(R.id.online);
@@ -268,6 +272,59 @@ public class CloudActivity extends AppCompatActivity {
                     firebase.child("GreetContent").setValue((String)mgreetContent.getText().toString());
                     firebase.child("GreetSpeak").setValue((String)sgreetContent.getText().toString());
                     firebase.child("PictureURL").setValue((String)pictureURL.getText().toString());
+                    Toast.makeText(getApplicationContext(),"Updated successfully",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        update3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (movieSuggestion1.getText().toString().isEmpty() && movieSuggestion2.getText().toString().isEmpty()&& movieSuggestion3.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered any Movie Suggestions");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion1.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestion 1");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion2.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestion 2");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion3.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestion 3");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion3.getText().toString().isEmpty()&&movieSuggestion2.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestions 2 and 3");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion3.getText().toString().isEmpty()&&movieSuggestion1.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestions 1 and 3");
+                    ab.create();
+                    ab.show();
+                }
+                else if (movieSuggestion2.getText().toString().isEmpty()&&movieSuggestion1.getText().toString().isEmpty()) {
+                    AlertDialog.Builder ab = new AlertDialog.Builder(CloudActivity.this);
+                    ab.setMessage("You haven't entered Movie Suggestions 1 and 2");
+                    ab.create();
+                    ab.show();
+                }
+                else{
+                    firebase.child("MovieSuggestion1").setValue((String)movieSuggestion1.getText().toString());
+                    firebase.child("MovieSuggestion2").setValue((String)movieSuggestion2.getText().toString());
+                    firebase.child("MovieSuggestion3").setValue((String)movieSuggestion3.getText().toString());
                     Toast.makeText(getApplicationContext(),"Updated successfully",Toast.LENGTH_SHORT).show();
                 }
             }
